@@ -10,6 +10,9 @@ struct GlobalVar
 	DWORD_PTR	DeltaOffset;
 };
 
+PVOID operator new ( size_t size );
+void operator delete( PVOID lpDst , size_t size );
+
 DWORD_PTR WINAPI MainThread( PVOID lpThreadParam );
 GlobalVar* GetGlobalVar();
 PVOID GetReturn();

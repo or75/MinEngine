@@ -18,6 +18,26 @@
 #define DEAD_CODE 0xADDEADDE
 #endif
 
+PVOID operator new ( size_t size )
+{
+	auto pGlobal = GetGlobalVar();
+
+	if ( (DWORD_PTR)pGlobal == DEAD_CODE )
+		return nullptr;
+
+	return pGlobal->Api.fnHeapAlloc( pGlobal->Api.fnGetProcessHeap() , HEAP_ZERO_MEMORY , size );
+}
+
+void operator delete( PVOID lpDst, size_t size )
+{
+	auto pGlobal = GetGlobalVar();
+
+	if ( (DWORD_PTR)pGlobal == DEAD_CODE )
+		return;
+
+	pGlobal->Api.fnHeapFree( pGlobal->Api.fnGetProcessHeap() , HEAP_ZERO_MEMORY , lpDst );
+}
+
 int WINAPI Entry( LPVOID lpThreadParam )
 {
 	GlobalVar LocalGlobal;
@@ -56,27 +76,94 @@ int WINAPI Entry( LPVOID lpThreadParam )
 	return 0;
 }
 
-DWORD_PTR WINAPI MainThread( PVOID lpThreadParam )
+class ShellUser32
 {
-	auto pGlobal = GetGlobalVar();
-
-	char STR_User32[] = { 'U', 's', 'e', 'r', '3', '2', 0 };
-	char STR_MessageBoxA[] = { 'M', 'e', 's', 's', 'a', 'g', 'e', 'B', 'o', 'x', 'A', 0 };
-
-	HMODULE hUser32 =  pGlobal->Api.fnLoadLibraryA( STR_User32 );
-
-	if ( hUser32 )
+public:
+	ShellUser32()
 	{
-		pGlobal->Api.MessageBoxA = (_MessageBoxA)pGlobal->Api.fnGetProcAddress( hUser32 , STR_MessageBoxA );
+		auto pGlobal = GetGlobalVar();
+
+		if ( (DWORD_PTR)pGlobal == DEAD_CODE )
+			return;
+
+		if ( pGlobal->Api.MessageBoxA == nullptr )
+		{
+			char STR_User32[] = { 'U', 's', 'e', 'r', '3', '2', 0 };
+			char STR_MessageBoxA[] = { 'M', 'e', 's', 's', 'a', 'g', 'e', 'B', 'o', 'x', 'A', 0 };
+
+			hUser32 = pGlobal->Api.fnGetModuleHandleA( STR_User32 );
+
+			if ( hUser32 == nullptr )
+			{
+				hUser32 = pGlobal->Api.fnLoadLibraryA( STR_User32 );
+
+				if ( hUser32 )
+				{
+					pGlobal->Api.MessageBoxA = (_MessageBoxA)pGlobal->Api.fnGetProcAddress( hUser32 , STR_MessageBoxA );
+				}
+			}
+		}
+	}
+	~ShellUser32()
+	{
+		hUser32 = nullptr;
+	}
+private:
+	HMODULE hUser32 = nullptr;
+};
+
+class ShellMessage
+{
+public:
+	ShellMessage( char* Title , char* Message )
+	{
+		auto pGlobal = GetGlobalVar();
+
+		if ( (DWORD_PTR)pGlobal == DEAD_CODE )
+			return;
+		
+		szTitle = Title;
+		szMessage = Message;
+	}
+
+	~ShellMessage()
+	{
+		MinEngine::memset( szTitle , 0 , MinEngine::strlen( szTitle ) );
+		MinEngine::memset( szMessage , 0 , MinEngine::strlen( szMessage ) );
+
+		szTitle = nullptr;
+		szMessage = nullptr;
+	}
+
+	int Show( UINT Type )
+	{
+		auto pGlobal = GetGlobalVar();
+
+		if ( (DWORD_PTR)pGlobal == DEAD_CODE )
+			return 0;
 
 		if ( pGlobal->Api.MessageBoxA )
 		{
-			pGlobal->Api.MessageBoxA( 0 , STR_MessageBoxA , STR_User32 , MB_ICONINFORMATION );
+			return pGlobal->Api.MessageBoxA( 0 , szMessage , szTitle , Type );
 		}
 	}
+private:
+	char* szTitle = nullptr;
+	char* szMessage = nullptr;
+};
 
-	MinZeroStr( STR_User32 );
-	MinZeroStr( STR_MessageBoxA );
+DWORD_PTR WINAPI MainThread( PVOID lpThreadParam )
+{
+	char STR_User32[] = { 'U', 's', 'e', 'r', '3', '2', 0 };
+	char STR_MessageBoxA[] = { 'M', 'e', 's', 's', 'a', 'g', 'e', 'B', 'o', 'x', 'A', 0 };
+
+	ShellUser32* User32Module = new ShellUser32();
+	ShellMessage* TestMsgBox = new ShellMessage( STR_User32 , STR_MessageBoxA );
+
+	TestMsgBox->Show( MB_ICONINFORMATION );
+
+	delete TestMsgBox;
+	delete User32Module;
 
 	return 0;
 }

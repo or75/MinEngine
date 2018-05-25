@@ -2,9 +2,6 @@
 
 #include "../MinEngine.h"
 
-//PVOID operator new ( size_t size );
-//void operator delete( PVOID lpDst );
-
 #define MinZeroStr(Buff) \
 	MinEngine::memset( &Buff , 0 , sizeof( Buff ) );
 

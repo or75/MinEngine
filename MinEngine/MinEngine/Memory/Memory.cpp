@@ -1,15 +1,5 @@
 #include "Memory.h"
-/*
-PVOID operator new ( size_t size )
-{
-	return HeapAlloc( GetProcessHeap() , HEAP_ZERO_MEMORY , size );
-}
 
-void operator delete( PVOID lpDst )
-{
-	HeapFree( GetProcessHeap() , 0 , lpDst );
-}
-*/
 namespace MinEngine
 {
 	void memset( PVOID lpDst , char sym , size_t len )
