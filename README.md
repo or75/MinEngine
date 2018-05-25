@@ -1,2 +1,2 @@
 # MinEngine
-Simple ShellCode Engine x86/x64
+ShellCode Engine x86/x64
