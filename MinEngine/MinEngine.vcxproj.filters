@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source">
+      <UniqueIdentifier>{7b30f4e9-8758-48df-ae26-5d4b95cdc709}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\MinEngine">
+      <UniqueIdentifier>{8c45fbce-453c-42cd-9f56-c9aa2bd13dc6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\MinEngine\Memory">
+      <UniqueIdentifier>{9d4bc552-15fe-443f-b4ab-49a63f1815fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\MinEngine\String">
+      <UniqueIdentifier>{0e49adb1-e5f4-41a8-b4c2-3110c1fb7f29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\MinEngine\Api">
+      <UniqueIdentifier>{6758a6bb-1b27-442d-803d-f5a294cb650d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="MinEngine\Memory\Memory.cpp">
+      <Filter>Source\MinEngine\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="MinEngine\String\String.cpp">
+      <Filter>Source\MinEngine\String</Filter>
+    </ClCompile>
+    <ClCompile Include="MinEngine\Api\Api.cpp">
+      <Filter>Source\MinEngine\Api</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Main.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="MinEngine\MinEngine.h">
+      <Filter>Source\MinEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="MinEngine\Memory\Memory.h">
+      <Filter>Source\MinEngine\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="MinEngine\String\String.h">
+      <Filter>Source\MinEngine\String</Filter>
+    </ClInclude>
+    <ClInclude Include="MinEngine\Api\Api.h">
+      <Filter>Source\MinEngine\Api</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
