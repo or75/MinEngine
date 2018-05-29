@@ -42,4 +42,13 @@ namespace MinEngine
 		*d = '\0';
 		return strDest;
 	}
+
+	char* strcpy( char *strDest , const char *strSource )
+	{
+		unsigned i;
+		for ( i = 0; strSource[i] != '\0'; ++i )
+			strDest[i] = strSource[i];
+		strDest[i] = '\0';
+		return strDest;
+	}
 }

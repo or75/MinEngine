@@ -123,6 +123,7 @@
       <UseFullPaths>false</UseFullPaths>
       <IntrinsicFunctions>false</IntrinsicFunctions>
       <WholeProgramOptimization>true</WholeProgramOptimization>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -155,17 +156,21 @@
       <SubSystem>Console</SubSystem>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <FixedBaseAddress>false</FixedBaseAddress>
+      <GenerateMapFile>true</GenerateMapFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MinEngine\Api\Api.cpp" />
+    <ClCompile Include="MinEngine\Engine.cpp" />
     <ClCompile Include="MinEngine\Memory\Memory.cpp" />
+    <ClCompile Include="MinEngine\MinEngine.cpp" />
     <ClCompile Include="MinEngine\String\String.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.h" />
     <ClInclude Include="MinEngine\Api\Api.h" />
+    <ClInclude Include="MinEngine\Engine.h" />
     <ClInclude Include="MinEngine\Memory\Memory.h" />
     <ClInclude Include="MinEngine\MinEngine.h" />
     <ClInclude Include="MinEngine\String\String.h" />

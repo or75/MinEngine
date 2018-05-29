@@ -1,7 +1,5 @@
 #include "Api.h"
 
-#include <winternl.h>
-
 namespace MinEngine
 {
 	bool Api::Init( ApiTable* pApiTable )

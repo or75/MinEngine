@@ -9,5 +9,6 @@ namespace MinEngine
 
 	UINT strlen( const char* lpStr1 );
 	int strcmpi( const char* lpStr1 , const char* lpStr2 );
-	char* strcat( const char*strDest , const char* strSource );
+	char* strcat( const char* strDest , const char* strSource );
+	char* strcpy( char *strDest , const char *strSource );
 }

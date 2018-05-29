@@ -30,6 +30,12 @@
     <ClCompile Include="MinEngine\Api\Api.cpp">
       <Filter>Source\MinEngine\Api</Filter>
     </ClCompile>
+    <ClCompile Include="MinEngine\MinEngine.cpp">
+      <Filter>Source\MinEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="MinEngine\Engine.cpp">
+      <Filter>Source\MinEngine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.h">
@@ -46,6 +52,9 @@
     </ClInclude>
     <ClInclude Include="MinEngine\Api\Api.h">
       <Filter>Source\MinEngine\Api</Filter>
+    </ClInclude>
+    <ClInclude Include="MinEngine\Engine.h">
+      <Filter>Source\MinEngine</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
